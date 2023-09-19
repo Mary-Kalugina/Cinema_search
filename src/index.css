@@ -1,0 +1,24 @@
+.time {
+  color: gray;
+  font-size: small;
+}
+
+.user-info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.post {
+  width: 25%;
+}
+
+.post-btns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-btn {
+  width: 20px;
+  height: 20px;
+}
