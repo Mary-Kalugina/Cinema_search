@@ -14,9 +14,8 @@ export default class Requests {
       }
   
       const text = await response.text();
-      // Check if the response is empty or not valid JSON
       if (!text) {
-        return []; // Return an empty array or handle it according to your requirements
+        return [];
       }
   
       const data = JSON.parse(text);
@@ -35,25 +34,21 @@ export default class Requests {
         },
         body: JSON.stringify(postData),
       });
-  
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
   
       const text = await response.text();
-      // Check if the response is empty or not valid JSON
       if (!text) {
-        return null; // Return null or handle it according to your requirements
+        return null;
       }
   
       const data = JSON.parse(text);
       return data;
     } catch (error) {
       console.error("Error:", error);
-      console.log(postData);
     }
-  }
-  
+  }  
 
   async delete(id: number) {
     try {

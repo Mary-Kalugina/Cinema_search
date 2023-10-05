@@ -24,18 +24,15 @@ const App: React.FC = () => {
     const fetchData = async () => {
       try {
         const data = await requests.get();
-        if (data !== void 0) {
-          setPostsArr(data as DataProps[]);
-        } else {
-          setPostsArr([]);
-        }
+        setPostsArr(data as DataProps[]);  
       } catch (error) {
         console.error('Error:', error);
+        setPostsArr([]);
       }
     };
   
     fetchData();
-  }, [requests, postsArr]);
+  }, []);
   
   
 
@@ -43,7 +40,7 @@ const App: React.FC = () => {
     <PostProvider>
       <Routes>
         <Route path="/" element={<Posts posts={postsArr} />} />
-        <Route path="/posts/new" element={<CreatePost />} />
+        <Route path="/posts/new" element={<CreatePost addPosts={setPostsArr}/>} />
         {postState && (
           <>
             <Route path="/posts/:id" element={<ShowPost postData={postState} />} />

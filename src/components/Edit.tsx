@@ -7,7 +7,8 @@ interface EditProps {
   postData: DataProps;
 }
 
-const Edit: React.FC<EditProps> = ({ postData }) => { // Destructure the prop here
+
+const Edit: React.FC<EditProps> = ({ postData }) => {
   const requests = new Requests();
   const [inputValue, setValue] = useState(postData?.content || '');
 

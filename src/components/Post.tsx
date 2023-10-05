@@ -7,19 +7,18 @@ interface DataProps {
 }
 
 const Post: React.FC<DataProps> = (postData) => {
-
     function formatDate(timestamp: number) {
         const date = new Date(timestamp);
-        const day = date.getDate().toString().padStart(2, '0');
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, "0");
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
         const year = date.getFullYear().toString().slice(-2);
         return `${day}.${month}.${year}`;
     }
 
-  return (
+        return (
    <div className="post-body">
         <div className="post-top">
-            <img/>
+            <img className="photo-big" src="../../assets/svg/ec5x_5eNya8-01.jpeg" />
             <div className="user-info">
                 <div className="post-name"></div>
                 <div className="info"></div>
@@ -27,10 +26,12 @@ const Post: React.FC<DataProps> = (postData) => {
             </div>
         </div>
         <div className="post-text">{postData.content}</div>
+        <div className="line"></div>
         <div className="post-btns">
-            <button className="like post-btn"></button>
-            <button className="comment post-btn"></button>
+            <button className="like post-btn" onClick={(e) => e.preventDefault()}><img className="post-btn" src="../../assets/svg/like-svgrepo-com.svg"/><div>Like</div></button>
+            <button className="comment post-btn" onClick={(e) => e.preventDefault()}><img className="post-btn" src="../../assets/svg/comment-3-svgrepo-com.svg"/><div>Comment</div></button>
         </div>
+        <div className="line"></div>
    </div>
   );
 }

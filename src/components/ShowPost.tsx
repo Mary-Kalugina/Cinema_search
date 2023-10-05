@@ -19,14 +19,14 @@ const ShowPost: React.FC<ShowPostProps> = ({ postData }) => {
     <>
       <div className="post-body">
         <div className="post-top">
-            <img />
+            <img className="svg" src="" />
             <div className="user-info">
                 <div className="post-name"></div>
                 <div className="info"></div>
-                <div className="time"></div>
+                <div className="time">{postData.created}</div>
             </div>
         </div>
-        <div className="post-text"></div>
+        <div className="post-text">{postData.content}</div>
         <div className="post-btns">
             <button className="like"></button>
             <button className="comment"></button>

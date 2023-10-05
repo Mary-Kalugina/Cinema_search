@@ -14,7 +14,7 @@ const Posts: React.FC<PostsProps> = ({ posts }) => {
   const changeActivePost = (post: { id: number; content: string; created: number }) => {
     setPostState(post)
   }
-  
+
   return (
     <div className="posts">
       <Link to={'/posts/new'}><button>Создать пост</button></Link>
