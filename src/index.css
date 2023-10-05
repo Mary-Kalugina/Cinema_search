@@ -23,6 +23,7 @@ body {background-color: gainsboro;}
   width: 40%;
   background-color: white;
   padding: 10px;
+  margin: 10px 0px;
 }
 
 .post-btns {
@@ -101,9 +102,9 @@ li {
 }
 
 .input-icons {
-  top: 290px;
-  position: fixed;
-  right: 345px;
+  top: 25px;
+  position: absolute;
+  right: 5px;
 }
 
 .photo {
@@ -139,4 +140,15 @@ li {
 
 .inputArea {
   display: flex;
+  position: relative;
+}
+
+.post-data {
+  position: relative;
+}
+
+.edit-actions {
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
 }
