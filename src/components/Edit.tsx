@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Requests from "./Requests";
-import { DataProps } from './PostContext';
+import { DataProps } from "../App";
 
 interface EditProps {
-  postData: DataProps;
+    postData: DataProps;
+    update: () => Promise<void>;
+    setActive: (data: DataProps) => void;
 }
 
-
-const Edit: React.FC<EditProps> = ({ postData }) => {
+const Edit: React.FC<EditProps> = ({ postData, update, setActive }) => {
   const requests = new Requests();
   const [inputValue, setValue] = useState(postData?.content || '');
 
@@ -16,11 +17,13 @@ const Edit: React.FC<EditProps> = ({ postData }) => {
     setValue(value);
   };
 
-  return postData ? (
+  return (
     <div className="edit-post">
       <div className="edit-top">
-        <div>Редактировать публикацию</div>
-        <button><img src="../../assets/svg/free-icon-close-4947222.png"/></button>
+        <div>Edit post</div>
+        <Link to={'/'}>
+        <button><img className="svg" src="../../assets/svg/free-icon-close-4947222.png"/></button>
+        </Link>
       </div>
       <div className="post-data">
         <img className="photo" src="../../assets/svg/ec5x_5eNya8-01.jpeg" />
@@ -49,21 +52,24 @@ const Edit: React.FC<EditProps> = ({ postData }) => {
           <div>Location</div>
         </li>
       </ul>
-      <Link to={`/posts/${postData.id}`}>
-        <button
-          onClick={() =>
-            requests.post({
-              id: postData.id,
-              content: inputValue,
-              created: Number(new Date()),
-            })
-          }
-        >
-          Save
-        </button>
-      </Link>
+      <div className="edit-bottom">
+        <Link to={`/posts/${postData.id}`}>
+          <button className="blue-btn"
+            onClick={async () => {
+              await requests.put({
+                id: postData.id,
+                content: inputValue,
+              });
+              setValue(""); 
+              update();
+              setActive({id: postData.id, content: inputValue, created: postData.created })
+          }}>
+            Save
+          </button>
+        </Link>
+      </div>
     </div>
-  ) : null;
+  )
 };
 
 export default Edit;

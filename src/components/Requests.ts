@@ -25,6 +25,25 @@ export default class Requests {
     }
   }
   
+  async getPost(id: number) {
+    try {
+      const response = await fetch(`https://crud-i0cq.onrender.com/posts/${id}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const text = await response.text();
+      if (!text) {
+        return [];
+      }
+  
+      const data = JSON.parse(text);
+      return data;
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
   async post(postData: DataProps) {
     try {
       const response = await fetch("https://crud-i0cq.onrender.com/posts", {
@@ -35,7 +54,7 @@ export default class Requests {
         body: JSON.stringify(postData),
       });
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        throw new Error(`HTTP  POST error! Status: ${response.status}`);
       }
   
       const text = await response.text();
@@ -49,6 +68,31 @@ export default class Requests {
       console.error("Error:", error);
     }
   }  
+
+  async put(postData: {id: number, content: string}) {
+    try {
+      const response = await fetch(`https://crud-i0cq.onrender.com/posts/${postData.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(postData),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP PUT error! Status: ${response.status}`);
+      }
+  
+      const text = await response.text();
+      if (!text) {
+        return null;
+      }
+  
+      const data = JSON.parse(text);
+      return data;
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  } 
 
   async delete(id: number) {
     try {

@@ -2,25 +2,31 @@ import React from "react";
 import Input from "./Input";
 import Post from "./Post";
 import { Link } from "react-router-dom";
-import { usePostContext } from "./PostContext";
-
+import { DataProps } from "../App";
+import Requests from "./Requests";
 
 interface PostsProps {
-  posts: { id: number; content: string; created: number }[];
+  posts: DataProps[],
+  postManager: (arg0: DataProps) => void;
 }
+const requests = new Requests();
+const Posts: React.FC<PostsProps> = ({ posts, postManager }) => {
 
-const Posts: React.FC<PostsProps> = ({ posts }) => {
-  const { setPostState } = usePostContext();
-  const changeActivePost = (post: { id: number; content: string; created: number }) => {
-    setPostState(post)
+  const changeActivePost = async (id: number) => {
+    const postData = await requests.getPost(id); 
+    postManager({ ...postData.post });
   }
 
   return (
     <div className="posts">
-      <Link to={'/posts/new'}><button>Создать пост</button></Link>
+      <div className="create-top">
+        <Link to={'/posts/new'}>
+          <button className="blue-btn">Create post</button>
+        </Link>
+      </div>
       {posts.map((post) => (
-        <div key={post.id} className="post" onClick={() => changeActivePost(post)}>
-          <Link to={`/posts/${post.id}`}>
+        <div key={post.id} className="post">
+          <Link to={`/posts/${post.id}`} onClick={() => changeActivePost(post.id)}>
             <Post id={post.id} content={post.content} created={post.created} />
           </Link>
           <Input />

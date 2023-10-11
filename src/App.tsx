@@ -5,10 +5,8 @@ import Posts from './components/Posts';
 import CreatePost from './components/CreatePost'; 
 import ShowPost from './components/ShowPost';
 import Edit from './components/Edit';
-import { PostProvider } from './components/PostContext'; 
-import { usePostContext } from './components/PostContext';
 
-interface DataProps {
+export interface DataProps {
   id: number;
   content: string;
   created: number;
@@ -16,39 +14,30 @@ interface DataProps {
 
 const App: React.FC = () => {
   const [postsArr, setPostsArr] = useState<DataProps[]>([]);
-  const { postState } = usePostContext();
-
+  const [activePost, setActivePost] = useState<DataProps>({id: 0,content: 'string', created: 0})
   const requests = useMemo(() => new Requests(), []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await requests.get();
-        setPostsArr(data as DataProps[]);  
-      } catch (error) {
-        console.error('Error:', error);
-        setPostsArr([]);
-      }
-    };
-  
+  const fetchData = async () => {
+    try {
+      const data = await requests.get();
+      setPostsArr(data as DataProps[]);  
+    } catch (error) {
+      console.error('Error:', error);
+      setPostsArr([]);
+    }
+  };
+
+  useEffect(() => {  
     fetchData();
   }, []);
   
-  
-
   return (
-    <PostProvider>
       <Routes>
-        <Route path="/" element={<Posts posts={postsArr} />} />
-        <Route path="/posts/new" element={<CreatePost addPosts={setPostsArr}/>} />
-        {postState && (
-          <>
-            <Route path="/posts/:id" element={<ShowPost postData={postState} />} />
-            <Route path="/posts/:id/edit" element={<Edit postData={postState} />} />
-          </>
-        )}
+        <Route path="/" element={<Posts posts={postsArr} postManager={setActivePost}/>} />
+        <Route path="/posts/new" element={<CreatePost update={fetchData}/>} />
+        <Route path="/posts/:id" element={<ShowPost postData={activePost} update={fetchData} />} />
+        <Route path="/posts/:id/edit" element={<Edit postData={activePost} update={fetchData} setActive={setActivePost}/>} />
       </Routes>
-    </PostProvider>
   );
 };
 

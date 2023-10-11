@@ -6,7 +6,8 @@ interface DataProps {
     created: number
 }
 
-const Post: React.FC<DataProps> = (postData) => {
+const Post: React.FC<DataProps> = (data) => {
+
     function formatDate(timestamp: number) {
         const date = new Date(timestamp);
         const day = date.getDate().toString().padStart(2, "0");
@@ -15,25 +16,31 @@ const Post: React.FC<DataProps> = (postData) => {
         return `${day}.${month}.${year}`;
     }
 
-        return (
-   <div className="post-body">
-        <div className="post-top">
-            <img className="photo-big" src="../../assets/svg/ec5x_5eNya8-01.jpeg" />
-            <div className="user-info">
-                <div className="post-name"></div>
-                <div className="info"></div>
-                <div className="time">{formatDate(postData.created)}</div>
+    return (
+        <div className="post-body">
+            <div className="post-top">
+                <img className="photo-big" src="../../assets/svg/ec5x_5eNya8-01.jpeg" />
+                <div className="user-info">
+                    <div className="post-name"></div>
+                    <div className="info"></div>
+                    <div className="time">{formatDate(data.created)}</div>
+                </div>
+            </div>
+            <div className="post-text">{data.content}</div>
+            <div className="post-btns">
+                <div className="btn-wrapper">
+                    <button className="like post-btn" onClick={(e) => e.preventDefault()}><img className="post-btn" src="../../assets/svg/like-svgrepo-com.svg"/>
+                    </button>
+                    <div>Like</div>
+                </div>
+                <div className="btn-wrapper">
+                    <button className="comment post-btn" onClick={(e) => e.preventDefault()}><img className="post-btn" src="../../assets/svg/comment-3-svgrepo-com.svg"/>
+                    </button>  
+                    <div>Comment</div>
+                </div>
             </div>
         </div>
-        <div className="post-text">{postData.content}</div>
-        <div className="line"></div>
-        <div className="post-btns">
-            <button className="like post-btn" onClick={(e) => e.preventDefault()}><img className="post-btn" src="../../assets/svg/like-svgrepo-com.svg"/><div>Like</div></button>
-            <button className="comment post-btn" onClick={(e) => e.preventDefault()}><img className="post-btn" src="../../assets/svg/comment-3-svgrepo-com.svg"/><div>Comment</div></button>
-        </div>
-        <div className="line"></div>
-   </div>
-  );
+    );
 }
 
 export default Post;

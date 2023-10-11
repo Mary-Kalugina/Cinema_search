@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Requests from "./Requests";
 
 interface CreatePostProps {
-  addPosts: (posts: DataProps[]) => void;
+  update: () => Promise<void>;
 }
 
 interface DataProps {
@@ -12,7 +12,7 @@ interface DataProps {
   created: number;
 }
 
-const CreatePost: React.FC<CreatePostProps> = ({ addPosts }) => {
+const CreatePost: React.FC<CreatePostProps> = ({ update }) => {
   const requests = new Requests();
   const [inputValue, setInputValue] = useState("");
   const changeValue = (value: string) => {
@@ -27,15 +27,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ addPosts }) => {
     };
     
     await requests.post(newPost);
-  
-    const response = await requests.get();
-    
-    if (Array.isArray(response)) {
-      addPosts(response);
-      setInputValue(""); 
-    } else {
-      console.error("Unexpected response format:", response);
-    }
+    update();
   };
   
 
@@ -68,7 +60,11 @@ const CreatePost: React.FC<CreatePostProps> = ({ addPosts }) => {
         <input value={inputValue} onChange={(e) => changeValue(e.target.value)} />
         <img className='svg input-smile' src="../assets/svg/smile-1-svgrepo-com.svg" alt="smiles" />
       </div>
-      <Link to="/"><button onClick={() => sendRequests()}>Опубликовать</button></Link>
+      <div className="create-top">
+        <Link to="/">
+          <button className="blue-btn" onClick={() => sendRequests()}>Public</button>
+        </Link>
+      </div>
     </div>
   );
 };

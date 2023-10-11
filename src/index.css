@@ -1,11 +1,26 @@
 body {background-color: gainsboro;}
 
+.blue-btn {
+  color: white;
+  background-color: blue;
+  border: none;
+  outline: darkblue;
+  padding: 5px;
+}
+
+.create-top {
+  width: 100%;
+  background-color: gainsboro;
+  margin-left: auto;
+}
+
 .posts {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 15px;
   flex-direction: column;
+  width: 50%;
 }
 
 .time {
@@ -20,30 +35,28 @@ body {background-color: gainsboro;}
 }
 
 .post {
-  width: 40%;
+  width: 100%;
   background-color: white;
   padding: 10px;
   margin: 10px 0px;
-}
-
-.post-btns {
-  display: flex;
-  justify-content: space-between;
 }
 
 .post-btn {
   width: 20px;
   height: 20px;
 }
+
 .post-create {
-  width: 40%;
+  width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 15px;
   padding: 15px;
+  background-color: white;
 }
+
 .actions-pannel {
   display: flex;
   align-items: center;
@@ -53,6 +66,11 @@ body {background-color: gainsboro;}
 .actions {
   display: flex;
   justify-content: space-around;
+}
+
+.actions > li {
+  border-right: 1px solid gainsboro;
+  padding: 5px;
 }
 
 ul {
@@ -74,6 +92,9 @@ a {
 .svg {
   width: 15px;
   height: 15px;
+  padding-right: 3px;
+  border: none;
+  background-color: transparent;
 }
  
 li {
@@ -111,6 +132,7 @@ li {
   width: 50px;
   height: 50px;
   border-radius: 25px;
+  margin-right: 5px;
 }
 
 .photo-big {
@@ -127,11 +149,15 @@ li {
   display: flex;
 }
 
-.post-btns {margin: 0px 20px;}
-
-.line {
-  border-bottom: 1px grey solid;
-  margin: 10px 0px;
+.post-btns {
+  width: 100%;
+  border-bottom: 1px solid gray;
+  border-top: 1px solid gray;
+  padding: 10px 0px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .input {
@@ -146,9 +172,59 @@ li {
 .post-data {
   position: relative;
 }
+.edit-post {
+  padding: 10px;
+}
+.edit-top {
+  background-color: gainsboro;
+  border-bottom: 1px gray solid;
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit-bottom {
+  background-color: gainsboro;
+  border-top: 1px gray solid;
+  margin-left: auto;
+}
+
+.edit-actions > li{
+  background-color: gainsboro;
+  border-radius: 15px;
+}
+
+.btn-wrapper > button{
+  margin-right: 10px;
+}
+
+.btn-wrapper {
+  display: flex;
+}
+
+.post-body {
+  width: 100%;
+  background-color: white;
+}
+
+.edit-post, .post-show {
+  width: 50%;
+  background-color: white;
+  margin: 10px;
+  padding: 15px;
+}
+
+.edit-actions li {
+  flex-basis: calc(50% - 10px);
+}
 
 .edit-actions {
-  width: 50%;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0; 
+}
+
+.post-top {
+  position: relative;
 }
